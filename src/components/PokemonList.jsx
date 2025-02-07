@@ -11,15 +11,15 @@ const PokeList = styled.div`
 
 
 export default function PokemonList({
-    AddPokeMon,
-    Mon
+    addPokeMon,
+    mon
 }) {
     return (
         <strictMode>
             <PokeList>
                <PokemonCard 
-                AddPokeMon = {AddPokeMon}
-                Mon = {Mon}/>
+                addPokeMon = {addPokeMon}
+                mon = {mon}/>
             </PokeList>
         </strictMode>
     )

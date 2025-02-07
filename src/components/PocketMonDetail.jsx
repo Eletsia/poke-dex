@@ -18,13 +18,30 @@ const Name = styled.div`
     color: red;
 `;
 
+const Button = styled.button`
+    width : 100px;
+    height : 40px;
+    text-align:center;
+    margin-top: 15px;
+    font-size: 15px;
+`;
+
 export default function PocketMonDetail(){
+    var DataLoad;
     const navigate = useNavigate();
     const data = PokeDB;
-    const id = location.search.slice(4);
-    console.log(id);
+    const id = location.search.slice(4); // query id 값을 가져오기위해 슬라이싱
+    var functionName = "";
+    if(sessionStorage.getItem("pocket")!== null){
+        DataLoad = JSON.parse(sessionStorage.getItem("pocket"));
 
-   
+        if(DataLoad.find((e) => Number(e.id) === Number(id)) === undefined)
+            functionName = "추가";
+        else
+            functionName = "삭제";
+    }
+    
+
     return (
         <>  
             <div>
@@ -37,7 +54,23 @@ export default function PocketMonDetail(){
                     </div>
                 )}
             </div>
-            <button onClick={()=> navigate('/dex')}>뒤로가기</button>
+            <Button onClick={()=> navigate('/dex')}>뒤로가기</Button>
+            <Button onClick={(text)=>{ 
+                let temp;
+                if(text.target.innerText === "삭제"){
+                    temp = DataLoad.filter(e=>Number(e.id) !== Number(id)); // 지워진 데이터
+                    sessionStorage.setItem("pocket",JSON.stringify(temp));
+                }
+                else{
+                    temp = [...DataLoad,...PokeDB.filter((e) => Number(e.id) === Number(id))];
+                    sessionStorage.setItem("pocket",JSON.stringify(temp));
+                }
+                navigate('/dex');
+            }
+            }>{functionName}</Button>
+            
         </>
     )
 }
+
+

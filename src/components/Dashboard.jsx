@@ -1,20 +1,24 @@
-import { StrictMode } from 'react';
 import styled from "styled-components";
-import PokeDB from '../../PokeDB'
 const DBoard = styled.div`
-   display:grid;
-   grid-template-columns: repeat(6,1fr);
-   justify-items: center;
-   margin-bottom: 20px;
+    width:100%;
+    display:grid;
+    grid-template-columns: repeat(6,1fr);
+    justify-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color : wheat;
+    margin-left : -20px;
 `;
 
 const Card = styled.div`
     width : 150px;
     height : 225px;
-    background-color: aqua;
+    background-color: #eeeee9;
     border-radius : 10px;
     margin-bottom : 10px;
     margin-right : 10px;
+    box-shadow : 2px 2px 2px 2px gray;
 `;
 
 const DeleteButton = styled.button`
@@ -26,20 +30,20 @@ const DeleteButton = styled.button`
 `;
 
 export default function DashBoard({
-    RemovePokeMon,
-    Mon}) {
+    removePokeMon,
+    mon}) {
     //const [poke,setPoke] = useState();
 
     return (
         <>
              <h1>나만의 포켓몬</h1>
             <DBoard>
-                {Mon.map((e) => 
+                {mon.map((e) => 
                     <Card>
                         <img src = {e.img_url}/>
                         <div>{e.korean_name}</div>
                         <div>No.{e.id}</div>
-                        <DeleteButton onClick= {() => RemovePokeMon(e.id)}>
+                        <DeleteButton onClick= {() => removePokeMon(e.id)}>
                             삭제</DeleteButton>
                     </Card>
                 )}

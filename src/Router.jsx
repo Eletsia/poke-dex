@@ -8,7 +8,7 @@ export default function Router () {
           <Routes>
             <Route path="/" element={<Home/>} />
               <Route path="/dex" element={<App />}/>
-              <Route path="/detail" element={<PocketMonDetail />}/>
+              <Route path="/detail" element={<PocketMonDetail/>}/>
           </Routes>
       </BrowserRouter>
     );
