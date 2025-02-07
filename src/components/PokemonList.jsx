@@ -9,7 +9,7 @@ const PokeList = styled.div`
     justify-items: center;
 `;
 
-
+// 카드가 담겨있는 컴포넌트
 export default function PokemonList({
     addPokeMon,
     mon

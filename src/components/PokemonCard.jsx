@@ -28,6 +28,7 @@ const SelectButton = styled.button`
     margin-top: 15px;
     font-size: 15px;
 `;
+// 아랫쪽 하단부 카드를 만드는 컴포넌트
 export default function PokemonCard({
     addPokeMon
 }){

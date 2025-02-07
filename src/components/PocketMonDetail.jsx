@@ -26,6 +26,7 @@ const Button = styled.button`
     font-size: 15px;
 `;
 
+// 세부사항을 보여주는 페이지
 export default function PocketMonDetail(){
     var DataLoad;
     const navigate = useNavigate();
