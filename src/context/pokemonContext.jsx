@@ -5,7 +5,6 @@ const PokemonContext = createContext();
 
 // Provider 생성
 export function PokemonProvider({ children }) {
-  // 초기 로드: sessionStorage에서 데이터 불러오기
   const dataLoad = JSON.parse(sessionStorage.getItem("pocket")) || [];
   const [mon, setMon] = useState(dataLoad);
 
