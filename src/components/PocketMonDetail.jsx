@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import PokeDB from "../../PokeDB"
 import styled from "styled-components";
+import { removePokeMon,addPokeMon } from "../rtk/pokemonSlice";
+import { Provider, useSelector, useDispatch } from "react-redux";
+import {store} from "../rtk/store"
 
 const TypeColor = styled.div`
     color:black;
@@ -26,12 +29,14 @@ const Button = styled.button`
     font-size: 15px;
 `;
 
-export default function PocketMonDetail(){
+function PocketMonDetailComp(){
     var DataLoad;
     const navigate = useNavigate();
     const data = PokeDB;
     const id = location.search.slice(4); // query id 값을 가져오기위해 슬라이싱
-    var functionName = "";
+    var functionName = "추가";
+    const mon = useSelector((state) => state.pokemon.mon);
+    const dispatch = useDispatch();
     if(sessionStorage.getItem("pocket")!== null){
         DataLoad = JSON.parse(sessionStorage.getItem("pocket"));
 
@@ -58,18 +63,26 @@ export default function PocketMonDetail(){
             <Button onClick={(text)=>{ 
                 let temp;
                 if(text.target.innerText === "삭제"){
-                    temp = DataLoad.filter(e=>Number(e.id) !== Number(id)); // 지워진 데이터
-                    sessionStorage.setItem("pocket",JSON.stringify(temp));
+                    //sessionStorage.setItem("pocket",JSON.stringify(temp));
+                    dispatch(removePokeMon(id));
+                    navigate("/dev");
                 }
                 else{
-                    temp = [...DataLoad,...PokeDB.filter((e) => Number(e.id) === Number(id))];
-                    sessionStorage.setItem("pocket",JSON.stringify(temp));
+                    //sessionStorage.setItem("pocket",JSON.stringify(temp));
+                    dispatch(addPokeMon(...PokeDB.filter((e) => Number(e.id) === Number(id))));
                 }
                 navigate('/dex');
             }
             }>{functionName}</Button>
-            
         </>
+    )
+}
+
+export default function PocketMonDetail(){
+    return(
+        <Provider store = {store}>
+            <PocketMonDetailComp />
+        </Provider>
     )
 }
 

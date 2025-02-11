@@ -1,5 +1,7 @@
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { usePokemon } from "../context/pokemonContext";
+import { removePokeMon } from "../rtk/pokemonSlice";
+
 const DBoard = styled.div`
     width:100%;
     display:grid;
@@ -31,7 +33,9 @@ const DeleteButton = styled.button`
 `;
 
 export default function DashBoard() {
-    const {mon, removePokeMon} = usePokemon();
+    const mon = useSelector((state) => state.pokemon.mon);
+    const dispatch = useDispatch();
+
     return (
         <>
              <h1>나만의 포켓몬</h1>
@@ -41,7 +45,7 @@ export default function DashBoard() {
                         <img src = {e.img_url}/>
                         <div>{e.korean_name}</div>
                         <div>No.{e.id}</div>
-                        <DeleteButton onClick= {() => removePokeMon(e.id)}>
+                        <DeleteButton onClick= {() => dispatch(removePokeMon(e.id))}>
                             삭제</DeleteButton>
                     </Card>
                 )}

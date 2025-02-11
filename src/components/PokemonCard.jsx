@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import PokeDB from '../../PokeDB'
 import styled from "styled-components";
-import { usePokemon } from '../context/pokemonContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPokeMon } from '../rtk/pokemonSlice';
+
 const PokeCard = styled.div`
     display: grid;
     grid-template-columns: repeat(6,1fr);
@@ -38,7 +40,8 @@ const PokeList = styled.div`
 export default function PokemonCard(){
     const data = PokeDB;
     const navigate = useNavigate();
-    const {mon, addPokeMon} = usePokemon();
+    const mon = useSelector((state) => state.pokemon.mon);
+    const dispatch = useDispatch();
     return (
         <>
             <PokeList>
@@ -50,7 +53,7 @@ export default function PokemonCard(){
                                 <div>{e.korean_name}</div>
                                 <div>No.{e.id}</div>
                             </div>
-                            <SelectButton onClick = {()=> addPokeMon(e)}>
+                            <SelectButton onClick = {()=> dispatch(addPokeMon(e))}>
                             추가</SelectButton>
                         </Card>
                     )}
