@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { usePokemon } from "../context/pokemonContext";
 const DBoard = styled.div`
     width:100%;
     display:grid;
@@ -29,11 +30,8 @@ const DeleteButton = styled.button`
     font-size: 15px;
 `;
 
-export default function DashBoard({
-    removePokeMon,
-    mon}) {
-    //const [poke,setPoke] = useState();
-
+export default function DashBoard() {
+    const {mon, removePokeMon} = usePokemon();
     return (
         <>
              <h1>나만의 포켓몬</h1>

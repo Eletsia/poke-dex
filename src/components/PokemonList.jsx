@@ -10,17 +10,10 @@ const PokeList = styled.div`
 `;
 
 
-export default function PokemonList({
-    addPokeMon,
-    mon
-}) {
+export default function PokemonList() {
     return (
-        <strictMode>
             <PokeList>
-               <PokemonCard 
-                addPokeMon = {addPokeMon}
-                mon = {mon}/>
+               <PokemonCard />
             </PokeList>
-        </strictMode>
     )
 }

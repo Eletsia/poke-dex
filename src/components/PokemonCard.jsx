@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import PokeDB from '../../PokeDB'
 import styled from "styled-components";
-
+import { usePokemon } from '../context/pokemonContext';
 const PokeCard = styled.div`
     display: grid;
     grid-template-columns: repeat(6,1fr);
@@ -28,26 +28,34 @@ const SelectButton = styled.button`
     margin-top: 15px;
     font-size: 15px;
 `;
-export default function PokemonCard({
-    addPokeMon
-}){
+
+const PokeList = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fill);
+    justify-items: center;
+`;
+
+export default function PokemonCard(){
     const data = PokeDB;
     const navigate = useNavigate();
+    const {mon, addPokeMon} = usePokemon();
     return (
         <>
-            <PokeCard>
-                {data.map((e) => 
-                    <Card> 
-                        <div onClick = {() => navigate('/detail?id='+e.id)}>
-                            <img src = {e.img_url}/>
-                            <div>{e.korean_name}</div>
-                            <div>No.{e.id}</div>
-                        </div>
-                        <SelectButton onClick = {()=> addPokeMon(e)}>
-                        추가</SelectButton>
-                    </Card>
-                )}
-            </PokeCard>
+            <PokeList>
+                <PokeCard>
+                    {data.map((e) => 
+                        <Card> 
+                            <div onClick = {() => navigate('/detail?id='+e.id)}>
+                                <img src = {e.img_url}/>
+                                <div>{e.korean_name}</div>
+                                <div>No.{e.id}</div>
+                            </div>
+                            <SelectButton onClick = {()=> addPokeMon(e)}>
+                            추가</SelectButton>
+                        </Card>
+                    )}
+                </PokeCard>
+            </PokeList>
         </>
     )
 
